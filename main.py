@@ -7,10 +7,7 @@ import pickle
 st.sidebar.title("Навигация")
 page = st.sidebar.radio(
     "Выберите страницу:",
-    ["Информация о разработчике", "Информация о наборе данных", "Визуализации зависимостей",
-     "Прогнозирование стоимости"],
-    index=0
-)
+    ["Информация о разработчике", "Информация о наборе данных", "Визуализации зависимостей","Прогнозирование стоимости"],index=0)
 
 if page == "Информация о разработчике":
     st.title("Информация о разработчике")
@@ -72,7 +69,11 @@ elif page == "Прогнозирование стоимости":
 
     @st.cache_resource
     def load_models():
-        models = {'Bagging Regression': pickle.load(open('bagging_reg.pkl', 'rb')),'CatBoost Regression': pickle.load(open('cat_reg.pkl', 'rb')),'Elastic Net': pickle.load(open('elastic_net.pkl', 'rb')),'Gradient Boost Regression': pickle.load(open('gb_reg.pkl', 'rb')),'Stacking Regression': pickle.load(open('stacking_reg.pkl', 'rb'))}
+        models = {'Bagging Regression': pickle.load(open('bagging_reg.pkl', 'rb')),
+                  'CatBoost Regression': pickle.load(open('cat_reg.pkl', 'rb')),
+                  'Elastic Net': pickle.load(open('elastic_net.pkl', 'rb')),
+                  'Gradient Boost Regression': pickle.load(open('gb_reg.pkl', 'rb')),
+                  'Stacking Regression': pickle.load(open('stacking_reg.pkl', 'rb'))}
         return models
     try:
         models = load_models()
@@ -134,7 +135,7 @@ elif page == "Прогнозирование стоимости":
 
             with col2:
 
-                Engine_capacity_cm3 = st.number_input("Объем двигателя (л)*",min_value=0.7,max_value=2.7,value=1.5,step=0.1) * 1000  # Конвертируем литры в cm3
+                Engine_capacity_cm3 = st.number_input("Объем двигателя (л)*",min_value=0.0,value=1.5,step=0.1) * 1000  # Конвертируем литры в cm3
 
                 fuel_options = {'Hybrid': 1,'Diesel': 2,'Petrol': 3,'Metan/Propan': 4,'Electric': 5,'Plug-in Hybrid': 6}
                 selected_fuel = st.selectbox("Тип топлива (Fuel type)*",options=list(fuel_options.keys()),index=0,help="Выберите тип топлива автомобиля")
