@@ -1,12 +1,9 @@
 import streamlit as st
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pickle
-from io import StringIO
 
-# Настройка бокового меню
 st.sidebar.title("Навигация")
 page = st.sidebar.radio(
     "Выберите страницу:",
@@ -15,7 +12,6 @@ page = st.sidebar.radio(
     index=0
 )
 
-# Основной контент приложения
 if page == "Информация о разработчике":
     st.title("Информация о разработчике")
     st.write("### ФИО: Кронштадтов Максим Сергеевич")
@@ -74,7 +70,6 @@ elif page == "Прогнозирование стоимости":
     st.markdown('<p class="big-font">Прогнозирование рыночной стоимости автомобиля в евро на основе характеристик</p>',
                 unsafe_allow_html=True)
 
-    # Загрузка моделей
     @st.cache_resource
     def load_models():
         models = {'Bagging Regression': pickle.load(open('bagging_reg.pkl', 'rb')),'CatBoost Regression': pickle.load(open('cat_reg.pkl', 'rb')),'Elastic Net': pickle.load(open('elastic_net.pkl', 'rb')),'Gradient Boost Regression': pickle.load(open('gb_reg.pkl', 'rb')),'Stacking Regression': pickle.load(open('stacking_reg.pkl', 'rb'))}
@@ -145,7 +140,6 @@ elif page == "Прогнозирование стоимости":
                 selected_fuel = st.selectbox("Тип топлива (Fuel type)*",options=list(fuel_options.keys()),index=0,help="Выберите тип топлива автомобиля")
                 Fuel_type_ID = fuel_options[selected_fuel]
 
-                # Выбор трансмиссии
                 transmission_options = {'Manual': 1,'Automatic': 2}
                 selected_transmission = st.selectbox("Трансмиссия (Transmission)*",options=list(transmission_options.keys()),index=0,help="Выберите тип трансмиссии автомобиля")
                 Transmission_ID = transmission_options[selected_transmission]
